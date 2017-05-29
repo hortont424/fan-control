@@ -17,9 +17,9 @@ def read_sensor():
 def set_fan_state(state):
     GPIO.output(fan_relay_channel, state)
 
-outfile = open("log", "a")
 while True:
     readings = read_sensor()
-    outfile.write("{0},{1},{2}\n".format(time.time(), readings["humidity"], readings["temperature"]))
+    with open("log", "a") as outfile:
+        outfile.write("{0},{1},{2}\n".format(time.time(), readings["humidity"], readings["temperature"]))
     time.sleep(30)
 
