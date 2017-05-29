@@ -1,10 +1,11 @@
 import Adafruit_DHT as DHT
 import RPi.GPIO as GPIO
+import time
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
-fan_relay_channel = 13
-sensor_channel = 11
+fan_relay_channel = 27
+sensor_channel = 17
 
 GPIO.setup(fan_relay_channel, GPIO.OUT)
 GPIO.setup(sensor_channel, GPIO.IN)
@@ -16,4 +17,9 @@ def read_sensor():
 def set_fan_state(state):
     GPIO.output(fan_relay_channel, state)
 
-print read_sensor()
+outfile = open("log", "a")
+while True:
+    readings = read_sensor()
+    outfile.write("{0},{1},{2}\n".format(time.time(), readings["humidity"], readings["temperature"]))
+    time.sleep(30)
+
