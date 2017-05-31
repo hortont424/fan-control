@@ -3,9 +3,10 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
-fan_relay_channel = 27
-sensor_channel = 17
+fan_relay_channel = 17
+sensor_channel = 27
 
 GPIO.setup(fan_relay_channel, GPIO.OUT)
 GPIO.setup(sensor_channel, GPIO.IN)
